@@ -35,18 +35,24 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(picowputty picowputty.c )
+add_executable(picowputty 
+    picowputty.c 
+    gpio_control.c
+    uart_comm.c
+    )
 
 pico_set_program_name(picowputty "picowputty")
 pico_set_program_version(picowputty "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(picowputty 1)
+pico_enable_stdio_uart(picowputty 0)
 pico_enable_stdio_usb(picowputty 1)
 
 # Add the standard library to the build
 target_link_libraries(picowputty
-        pico_stdlib)
+        pico_stdlib
+        hardware_gpio
+        )
 
 # Add the standard include files to the build
 target_include_directories(picowputty PRIVATE
