@@ -16,8 +16,17 @@ void control_led(const char *color) {
         gpio_put(LED_GREEN, 1);
         gpio_put(LED_BLUE, 0);
         gpio_put(LED_RED, 0);
-    } 
-
+    }
+    else if(strcmp(color, "RED") == 0) {
+        gpio_put(LED_GREEN, 0);
+        gpio_put(LED_BLUE, 0);
+        gpio_put(LED_RED, 1);
+    }
+    else if(strcmp(color, "OFF") == 0) {
+        gpio_put(LED_GREEN, 0);
+        gpio_put(LED_BLUE, 0);
+        gpio_put(LED_RED, 0);
+    }
 
     /*Outras LEDs aqui*/
 }
