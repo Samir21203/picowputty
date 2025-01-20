@@ -14,7 +14,8 @@ void init_gpio();
 void control_led(const char *color);
 
 //Funções para controle do PWM no buzzer
-void init_pwm(uint32_t gpio);
-void control_buzzer(uint32_t gpio, uint32_t frequency, uint32_t duration_ms);
+static void buzzer_set_frequency(uint buzzer_pin, uint frequency);
+void buzzer_init(uint buzzer_pin);
+void buzzer_beep(uint buzzer_pin, uint duration);
 
 #endif //GPIO_CONTROL_H

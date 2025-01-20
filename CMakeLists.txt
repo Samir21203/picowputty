@@ -53,6 +53,7 @@ target_link_libraries(picowputty
         pico_stdlib
         hardware_gpio
         hardware_pwm
+        hardware_timer
         )
 
 # Add the standard include files to the build
