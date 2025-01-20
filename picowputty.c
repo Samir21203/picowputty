@@ -8,19 +8,19 @@
     * Este é o código principal do projeto.
 */
 
+#define BUZZER_BEEP_DURATION_MS 300
+
 
 int main() {
     //Inicializa a UART e GPIOs
     init_uart();
     init_gpio();
-
+    buzzer_init(BUZZER);
     char command[10];
-
     while (true) {
         read_command(command, sizeof(command));
-
         if (strcmp(command, "BUZZER") == 0) {
-            control_buzzer(BUZZER, 1000, 2000); // Liga o buzzer por 2 segundos
+            buzzer_beep(BUZZER, BUZZER_BEEP_DURATION_MS); // Liga o buzzer por 2 segundos
             printf("ON: BUZZER\n");
         } else if (strcmp(command, "OFF") == 0) {
             control_led("OFF"); // Desliga todos os LEDs
