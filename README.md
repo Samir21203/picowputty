@@ -1,4 +1,4 @@
-# Controle de LED RGB e Buzzer com Raspberry Pi Pico W via UART
+# Controle de LED RGB e Buzzer com Raspberry Pi Pico W via UART - Vídeo -> https://youtu.be/xEOxDBEo5P0
 
 Este projeto foi desenvolvido para controlar um LED RGB e um buzzer conectados a uma **Raspberry Pi Pico W** usando comunicação **UART**. A interação é realizada por meio do envio de comandos pelo software **PuTTY** ou por simulação no **Wokwi**. O programa foi implementado em **C** utilizando o **Pico SDK** (versão 2.1.0).
 
