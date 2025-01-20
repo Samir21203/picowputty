@@ -1,57 +1,64 @@
-# PicoWPutty
+# Controle de LED RGB e Buzzer com Raspberry Pi Pico W via UART
 
-Este é um projeto para controlar LEDs e um buzzer usando um Raspberry Pi Pico W. O projeto utiliza a SDK do Raspberry Pi Pico e é escrito em C.
+Este projeto foi desenvolvido para controlar um LED RGB e um buzzer conectados a uma **Raspberry Pi Pico W** usando comunicação **UART**. A interação é realizada por meio do envio de comandos pelo software **PuTTY** ou por simulação no **Wokwi**. O programa foi implementado em **C** utilizando o **Pico SDK** (versão 2.1.0).
 
-## Uso
+## Funcionalidades
+1. **Controle do LED RGB**:  
+   - **RED**: Liga o LED vermelho.  
+   - **GREEN**: Liga o LED verde.  
+   - **BLUE**: Liga o LED azul.  
+   - **WHITE**: Liga todos os LEDs (vermelho, verde e azul simultaneamente).  
+   - **OFF**: Apaga todos os LEDs.
 
-1. Carregue o arquivo `picowputty.uf2` no Raspberry Pi Pico W.
-2. Conecte-se ao dispositivo via UART.
-3. Envie comandos para controlar os LEDs e o buzzer:
-    - `RED`, `GREEN`, `BLUE` para acender os LEDs correspondentes.
-    - `OFF` para desligar todos os LEDs.
-    -  para ligar o buzzer por 2 segundos.
-
-## Dependências
-
-- Raspberry Pi Pico SDK
-- CMake
-- Ninja (opcional, mas recomendado)
+2. **Controle do Buzzer**:  
+   - **BUZZER**: Ativa o buzzer para emitir um beep por durante 300 milissegundos.
 
 ## Configuração do Ambiente
+Para rodar este projeto, é necessário configurar o ambiente de desenvolvimento e instalar as ferramentas a seguir:
+- **GNU Arm Embedded Toolchain** (`arm-none-eabi-gcc`).
+- **Pico SDK** (versão 2.1.0).
+- Extensões para o VS Code:
+  - **CMake**.
+  - **Raspberry Pi Pico**.
+  - **Wokwi**.
 
-1. Clone este repositório:
-    ```sh
-    git clone https://github.com/Samir21203/picowputty.git
-    cd picowputty
-    ```
+## Simulação no Wokwi
+O projeto foi configurado para ser simulado no [Wokwi](https://wokwi.com/). O diagrama do circuito já está integrado e permite verificar o funcionamento do LED RGB e do buzzer com os comandos enviados via UART.
 
-2. Configure o SDK do Raspberry Pi Pico:
-    ```sh
-    export PICO_SDK_PATH=<CAMINHO_PARA_O_SDK>
-    ```
+## Instruções de Uso
+1. **Preparação do Hardware**:  
+   - Conecte os terminais do LED RGB e o buzzer aos pinos GPIO da **Raspberry Pi Pico W**.
+   - Certifique-se de que os resistores adequados estão conectados ao LED RGB.
 
-3. Crie um diretório de build e navegue até ele:
-    ```sh
-    mkdir build
-    cd build
-    ```
+2. **Baud Rate**:  
+   - A comunicação UART está configurada para um baud rate de **115200**.
 
-4. Configure o projeto com CMake:
-    ```sh
-    cmake ..
-    ```
+3. **Execução do Código**:
+   - Importe o projeto para o **VS Code** usando o menu de importação da extensão da Raspberry Pi Pico.
+   - Compile e envie o código para a placa.
 
-5. Compile o projeto:
-    ```sh
-    make -j4
-    ```
+4. **Comandos UART**:  
+   Use o **PuTTY** ou qualquer outro terminal UART para enviar os comandos:
+   - **RED**: Liga o LED vermelho.
+   - **GREEN**: Liga o LED verde.
+   - **BLUE**: Liga o LED azul.
+   - **WHITE**: Liga todos os LEDs.
+   - **OFF**: Desliga todos os LEDs.
+   - **BUZZER**: Ativa o buzzer.
 
-## Arquivos Principais
+## Estrutura do Projeto
+- `src/`: Código-fonte do projeto.
+- `include/`: Arquivos de cabeçalho.
+- `CMakeLists.txt`: Configuração para compilação com o CMake.
+- `wokwi_diagram.json`: Configuração do circuito para simulação no Wokwi.
 
-- : Código principal do projeto.
--  e : Funções para controle dos GPIOs e PWM.
--  e : Funções para comunicação UART.
+## Contribuições
+Contribuições são bem-vindas! Caso tenha sugestões, problemas ou melhorias, sinta-se à vontade para abrir uma **issue** ou enviar um **pull request**.
 
 ## Licença
+Este projeto está licenciado sob a [MIT License](LICENSE).
 
-Este projeto está licenciado sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
+---
+
+Projeto desenvolvido por **Carlos Valadão** e **Victor Samir**.
+
