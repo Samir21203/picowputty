@@ -1,4 +1,5 @@
 #include "gpio_control.h"
+#include "hardware/pwm.h"
 #include "hardware/gpio.h"
 #include "pico/stdlib.h"
 #include <string.h>
@@ -25,6 +26,25 @@ void init_gpio() {
     gpio_put(BUZZER, 0);
 }
 
+// Inicialização do PWM para o buzzer
+void init_pwm(uint32_t gpio) {
+    // Configuração do PWM para o buzzer
+    gpio_set_function(gpio, GPIO_FUNC_PWM);
+    uint slice_num = pwm_gpio_to_slice_num(gpio);
+
+    uint32_t clock_freq = 125000000; // Frequência padrão do RP2040 (125 MHz)
+    uint32_t desired_freq = 1000;    // Frequência desejada para o buzzer (1 kHz)
+    uint16_t divider = clock_freq / (desired_freq * 4096); // Divisor do PWM
+    pwm_set_clkdiv(slice_num, divider);
+
+    // Define a largura do pulso (50% de duty cycle)
+    pwm_set_wrap(slice_num, 4095); // Resolução do PWM
+    pwm_set_chan_level(slice_num, pwm_gpio_to_channel(gpio), 2048); // 50% de duty cycle
+
+    // Habilita o PWM
+    pwm_set_enabled(slice_num, true);
+}
+
 // Controle dos LEDs
 void control_led(const char *color) {
     // Acendendo o LED verde
@@ -45,17 +65,34 @@ void control_led(const char *color) {
         gpio_put(LED_BLUE, 0);
         gpio_put(LED_RED, 1);
     }
+    // Acendendo o LED azul
+    else if(strcmp(color, "BLUE") == 0) {
+        gpio_put(LED_GREEN, 0);
+        gpio_put(LED_BLUE, 1);
+        gpio_put(LED_RED, 0);
+    }  
+    // Acendendo o LED verde
+    else if(strcmp(color, "GREEN") == 0) {
+        gpio_put(LED_GREEN, 1);
+        gpio_put(LED_BLUE, 0);
+        gpio_put(LED_RED, 0);
+    }
 }
 
 
 // Controle do buzzer
-void control_buzzer() {
-    gpio_put(BUZZER, 1); // Liga o buzzer
-    sleep_ms(2000);      // Mantém ligado por 2 segundos
-    gpio_put(BUZZER, 0); // Desliga o buzzer
-}
+void control_buzzer(uint32_t gpio, uint32_t frequency, uint32_t duration_ms) {
+    uint slice_num = pwm_gpio_to_slice_num(gpio);
 
-//Controle do buzzer
-void control_buzzer() {
+    // Atualiza a frequência do PWM
+    uint32_t clock_freq = 125000000; // Frequência padrão do RP2040 (125 MHz)
+    uint16_t divider = clock_freq / (frequency * 4096); // Divisor do PWM
+    pwm_set_clkdiv(slice_num, divider);
 
+    // Liga o buzzer
+    pwm_set_enabled(slice_num, true);
+    sleep_ms(duration_ms);
+
+    // Desliga o buzzer
+    pwm_set_enabled(slice_num, false);
 }
