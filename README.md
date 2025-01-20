@@ -60,5 +60,5 @@ Este projeto está licenciado sob a [MIT License](LICENSE).
 
 ---
 
-Projeto desenvolvido por **Carlos Valadão** e **Victor Samir**.
+Projeto desenvolvido por **Carlos Valadão**, **Victor Samir** e **Gabriel Tavares**
 
