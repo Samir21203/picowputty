@@ -19,6 +19,13 @@ int main()
     while (true) {
         read_command(command, sizeof(command));
 
-        //Implemente o controle dos LEDs e buzzer aqui
-    }
+        if (strcmp(command, "WHITE") == 0) {
+            control_led("WHITE"); // Liga todos os LEDs (luz branca)
+            printf("LED Branco (todos ligados) ligado\n");
+        } else if (strcmp(command, "OFF") == 0) {
+            control_led("OFF"); // Desliga todos os LEDs
+            printf("Todos os LEDs desligados\n");
+        }else {
+            printf("Comando inválido: %s\n", command);
+        }
 }
